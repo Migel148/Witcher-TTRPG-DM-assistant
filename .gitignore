@@ -1,0 +1,53 @@
+# Виртуальное окружение
+.venv/
+venv/
+env/
+
+# Кэш Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Служебные папки IDE
+.idea/
+.vscode/
+
+# Логи и временные файлы
+logs/
+temp/
+*.log
+app_log.txt
+
+# Данные сессии (локальные, не нужны в репозитории)
+saved_data.json
+selected.json
+
+# Бинарные файлы (не загружаем)
+*.exe
+*.msi
+*.bin
+*.so
+*.dll
+*.dylib
+
+# Архивы и установочные файлы
+*.zip
+*.tar.gz
+*.whl
+
+# Графика (исходники и иконки)
+*.psd
+*.ico
+*.svg
+*.png
+
+# Папки сборки
+dist/
+build/
+*.egg-info/
+
+# Тесты
+.pytest_cache/
+.mypy_cache/
+.tox/
