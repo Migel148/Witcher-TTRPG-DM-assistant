@@ -16,11 +16,11 @@ button_size = (14, 1)
 button_stat_size = (9, 1)
 empty_place = " " * (2 + 1 + button_stat_size[0] + 1) * 2
 button_color = [
-    ('white', 'blue'), #
-    ('white', 'red'), # атакующие
-    ('white', 'green'), # защищающие
-    ('white', 'purple'), # магические
-    ('white', 'orange'), # диологовое
+    ('white', 'blue'),  #
+    ('white', 'red'),  # атакующие
+    ('white', 'green'),  # защищающие
+    ('white', 'purple'),  # магические
+    ('white', 'orange'),  # диологовое
     ('white', 'green')
 ]
 
@@ -47,9 +47,10 @@ def process_data(input_dict):
     return output
 
 
-def battle_layout_maker(stats__, added_stats__, skills_, armor_, weapon_, i=0, actor_name='', mining=[""], abilities=[""],
+def battle_layout_maker(stats__, added_stats__, skills_, armor_, weapon_, i=0, actor_name='', mining=[""],
+                        abilities=[""],
                         weaknes=[""], description=[""], difficult=[""], type_class=""):
-    print(actor_name)
+    # print(actor_name)
     if 'Стрельба из лука' not in skills_:
         skills_['Стрельба из лука'] = 0
     if 'Стрельба из арбалетов' not in skills_:
@@ -123,7 +124,7 @@ def battle_layout_maker(stats__, added_stats__, skills_, armor_, weapon_, i=0, a
     # print(actor_name)
     # for key,value in skills_.items():
     #     if value != 0 and key not in list(all_skills.keys()):
-            # print(f"{key} = '{value}'")
+    # print(f"{key} = '{value}'")
 
     added_stats_ = {"ПЗ": 0,
                     "ВЫН": 0,
@@ -329,7 +330,7 @@ def battle_layout_maker(stats__, added_stats__, skills_, armor_, weapon_, i=0, a
                     sg.InputText(default_text=str(max(0, skills_["Сила"])), key=f"-Сила-{i}", size=(2, 1)),
                     sg.Button("Сила", size=button_size, key=f"b--Сила-{i}"),
                     sg.InputText(default_text=str(max(0, skills_["Стойкость"])), key=f"-Стойкость-{i}", size=(2, 1)),
-                    sg.Button("Стойкость", size=button_size, key=f"b--Стойкость-{i}",button_color=button_color[2]),
+                    sg.Button("Стойкость", size=button_size, key=f"b--Стойкость-{i}", button_color=button_color[2]),
 
                 ],
                 [
@@ -349,7 +350,8 @@ def battle_layout_maker(stats__, added_stats__, skills_, armor_, weapon_, i=0, a
                     sg.Button("Внешний вид", size=button_size, key=f"b--Внешний вид-{i}"),
                     sg.InputText(default_text=str(max(0, skills_["Понимание людей"])), key=f"-Понимание людей-{i}",
                                  size=(2, 1)),
-                    sg.Button("Понимание людей", size=button_size, key=f"b--Понимание людей-{i}", button_color=button_color[0]),
+                    sg.Button("Понимание людей", size=button_size, key=f"b--Понимание людей-{i}",
+                              button_color=button_color[0]),
 
                 ],
                 [sg.Text(empty_place),
@@ -406,11 +408,13 @@ def battle_layout_maker(stats__, added_stats__, skills_, armor_, weapon_, i=0, a
                     sg.InputText(default_text=str(max(0, skills_["Сопротивление магии"])),
                                  key=f"-Сопротивление магии-{i}",
                                  size=(2, 1)),
-                    sg.Button("Сопротивление магии", size=button_size, key=f"b--Сопротивление магии-{i}",button_color=button_color[2]),
+                    sg.Button("Сопротивление магии", size=button_size, key=f"b--Сопротивление магии-{i}",
+                              button_color=button_color[2]),
                     sg.InputText(default_text=str(max(0, skills_["Сопротивление убеждению"])),
                                  key=f"-Сопротивление убеждению-{i}",
                                  size=(2, 1)),
-                    sg.Button("Сопротивление убеждению", size=button_size, key=f"b--Сопротивление убеждению-{i}", button_color=button_color[2]),
+                    sg.Button("Сопротивление убеждению", size=button_size, key=f"b--Сопротивление убеждению-{i}",
+                              button_color=button_color[2]),
                     sg.InputText(default_text=str(max(0, skills_["Проведение ритуалов"])),
                                  key=f"-Проведение ритуалов-{i}",
                                  size=(2, 1)),
@@ -433,8 +437,9 @@ def battle_layout_maker(stats__, added_stats__, skills_, armor_, weapon_, i=0, a
                             sg.InputText(list(weapon_dict.values())[0][0][0], size=(2, 1), key=f"-damage_roll-{i}"),
                             sg.Text("d6+"),
                             sg.InputText(list(weapon_dict.values())[0][0][1], size=(2, 1), key=f"-add_damage-{i}"),
-                            sg.Text(f"{"+"+str(((max(0, stats_["ТЕЛОСЛОЖЕНИЕ"]) - 5) // 2) * 2) if ((max(0, stats_["ТЕЛОСЛОЖЕНИЕ"]) - 5) // 2) * 2 >=0 else ((max(0, stats_["ТЕЛОСЛОЖЕНИЕ"]) - 5) // 2) * 2}",
-                                    key=f"b-add_damage_physique-{i}"),
+                            sg.Text(
+                                f"{"+" + str(((max(0, stats_["ТЕЛОСЛОЖЕНИЕ"]) - 5) // 2) * 2) if ((max(0, stats_["ТЕЛОСЛОЖЕНИЕ"]) - 5) // 2) * 2 >= 0 else ((max(0, stats_["ТЕЛОСЛОЖЕНИЕ"]) - 5) // 2) * 2}",
+                                key=f"b-add_damage_physique-{i}"),
                             sg.Checkbox("ББ", default=True, key=f"c-add_damage_physique_flag-{i}")
                         ],
                         [
@@ -597,19 +602,17 @@ def main():
     for selected_item in selected_full:
         selected.append(selected_item.split("/")[-1].split(".")[0])
     menu_window.Element('-selected-').update(format_text(', '.join((selected)) + ".", 50))
-    log("Battle start","MENU")
+    log("Battle start", "MENU")
     values = None
     while True:
         # try:
         menu_event, menu_values = menu_window.read()
-        log(menu_event,"MENU")
+        log(menu_event, "MENU")
         if menu_event == sg.WIN_CLOSED or menu_event == "Выход":
             break
         if menu_event == "Добавить/Убрать" and menu_values['-TREE-'] != []:
             actor_path = menu_values['-TREE-'][0]
             actor_name = actor_path.split("/")[-1].split(".")[0]
-            # print(actor_path)
-
             if actor_name in ", ".join(selected):
                 for i in range(len(selected) - 1, -1, -1):
                     if actor_name in selected[i]:
@@ -627,14 +630,13 @@ def main():
                         else:
                             for i in range(int(num_copies)):
                                 selected.append("№" + str(i + 1) + " " + actor_name)
-                                selected_full.append(str(actor_path)[:-(3 + len(actor_name))] + "№" + str(
-                                    i + 1) + " " + actor_name + ".py")
+                                selected_full.append(str(actor_path).replace(f"{actor_name}",f"{actor_name} №{str(i + 1)}"))
                     if num_copies is None:
                         break
 
             menu_window.Element('-selected-').update(format_text(', '.join((selected)) + ".", 50))
         if menu_event == "Бой" and len(selected) != 0:
-            tabs_names = list(enumerate(selected,1))
+            tabs_names = list(enumerate(selected, 1))
             log(f"Порядок: {tabs_names}")
             save_values_to_file(selected_full, "selected.json")
             initiative = {}
@@ -648,7 +650,6 @@ def main():
                 try:
                     # Используем новую функцию загрузки из Custom_scripts
                     enemy_tuple = load_enemy_from_json(json_file_path)
-
                     # Записываем в temp файл
                     with open(main_directory + temp_path, "a", encoding="utf-8") as f:
                         f.write(str(enemy_tuple) + "\n")
@@ -669,30 +670,30 @@ def main():
                     sg.Popup(f"Ошибка при загрузке врага:\n{e}\n\nФайл будет пропущен.",
                              title="Ошибка", keep_on_top=True)
                     continue
-            #
-            # for select in selected_full:
-            #     print(select)
-            #     if "№" in select:
-            #         #                     # print(1, select.split(" №")[0] + ".py")
-            #         #                     with open(select.split(" №")[0] + ".py", "r",
-            #         #                               encoding="utf-8") as f:  # если в select есть № то мы дую
-            #         #                         save_exec(f.read())
-            #         # print(1, select.split("№")[1][1:] + ".py")
-            #         with open(select.split("№")[0] + "/" + select.split("№")[1][2:], "r",
-            #                   encoding="utf-8") as f:  # если в select есть № то мы дую
-            #             save_exec(f.read())
-            #
-            #     else:
-            #         # print(2, select)
-            #         with open(select, "r", encoding="utf-8") as f:
-            #             save_exec(f.read())
-            #             # print(f.read().splitlines()[-1])
+                #
+                # for select in selected_full:
+                #     print(select)
+                #     if "№" in select:
+                #         #                     # print(1, select.split(" №")[0] + ".py")
+                #         #                     with open(select.split(" №")[0] + ".py", "r",
+                #         #                               encoding="utf-8") as f:  # если в select есть № то мы дую
+                #         #                         save_exec(f.read())
+                #         # print(1, select.split("№")[1][1:] + ".py")
+                #         with open(select.split("№")[0] + "/" + select.split("№")[1][2:], "r",
+                #                   encoding="utf-8") as f:  # если в select есть № то мы дую
+                #             save_exec(f.read())
+                #
+                #     else:
+                #         # print(2, select)
+                #         with open(select, "r", encoding="utf-8") as f:
+                #             save_exec(f.read())
+                #             # print(f.read().splitlines()[-1])
                 initiative[select.split("/")[-1].split(".")[0]] = 0
             # print(initiative)
             current_in_initiative = (selected_full[0].split("/")[-1].split(".")[0], 0)
             with open(main_directory + temp_path, "r", encoding="utf-8") as f:
                 lines = f.read().splitlines()
-            print(lines)
+            # print(lines)
             # print(split_result)
             for index, line in enumerate(lines):
                 real_line = ast.literal_eval(line)
@@ -726,7 +727,7 @@ def main():
                                  sg.Button('Сгенерировать Скоятаэля', key='-generate_char_scoiatael-')],
                                 [
                                     sg.Multiline(size=(154, 13), key='-CHAR_OUTPUT-',
-                                                 autoscroll=False, enable_events=False),
+                                                 autoscroll=False, enable_events=True),
                                     sg.Column([
                                         [sg.Table(
                                             values=[
@@ -812,13 +813,14 @@ def main():
                     ]
                 ]),
                     # sg.Output(size=(2, 30), )  # TODO
+                    sg.Multiline(size=(2, 30), key=f'-ROLL_OUTPUT-', autoscroll=True, enable_events=False,
+                                 auto_refresh=True, expand_y=True, no_scrollbar=True, reroute_cprint=True, write_only=True),
                 ],
                 [sg.Button('Назад'),
-                 sg.Multiline(size=(188, 3), key=f'-NOTES-', autoscroll=True, enable_events=False),
+                 sg.Multiline(size=(188, 3), key=f'-NOTES-', autoscroll=True, enable_events=False, expand_x=True),
                  ]
             ]
             menu_window.hide()
-            print()
             window = sg.Window(f'Бой', layout_2, finalize=True, icon='icon/icon.ico')
             roll = None
             # Создание директории для временных файлов
@@ -904,6 +906,7 @@ def main():
                         window[f'-OUTPUT-{tab_event}'].update(
                             f"Попадание: {roll}\nЦель: {target}\nУрон: {damage_mod}\n", append=True)
                         window[f'-OUTPUT-{tab_event}'].Widget.yview_moveto(1.0)
+                        cprint('--')
                     elif event == f"--FREE_ROLL-":
                         window[f'-FREE_ROLL_OUTPUT-'].update(int(values['-FREE_ROLL_BASE-']) + special_d10_roll())
                     elif event_value == 'Урон' and roll is not None and roll < int(values[f"-defense-{tab_event}"]):
@@ -916,7 +919,7 @@ def main():
                             damage += ((max(0, int(values[f"-ТЕЛОСЛОЖЕНИЕ-{tab_event}"])) - 5) // 2) * 2
                         for i in range(int(values[f"-damage_roll-{tab_event}"])):
                             damage += roll_d6()
-                        print("--")
+                        cprint("--")
                         flag = True
                         if values[f"-defense-{tab_event}"] is not None and values[f"-defense-{tab_event}"] != '':
                             # if roll == int(values[f"-defense-{tab_event}"]):
@@ -928,14 +931,14 @@ def main():
                             #     window[f'-OUTPUT-{tab_event}'].Widget.yview_moveto(1.0)
                             # else:
                             if flag:
-                                    window[f'-OUTPUT-{tab_event}'].update(f"Пробитие брони.\n", append=True)
-                                    damage += crit_damage(roll, int(values[f"-defense-{tab_event}"]), target, window,
-                                                          tab_event)
-                                    damage = {'x3': damage * 3, 'x1': damage, 'x1/2': damage / 2}[damage_mod]
-                                    damage -= int(values[f"-armor-{tab_event}"])
-                                    window[f'-OUTPUT-{tab_event}'].update(f"Урон: {round(max(damage, 0))}\n",
-                                                                          append=True)
-                                    window[f'-OUTPUT-{tab_event}'].Widget.yview_moveto(1.0)
+                                window[f'-OUTPUT-{tab_event}'].update(f"Пробитие брони.\n", append=True)
+                                damage += crit_damage(roll, int(values[f"-defense-{tab_event}"]), target, window,
+                                                      tab_event)
+                                damage = {'x3': damage * 3, 'x1': damage, 'x1/2': damage / 2}[damage_mod]
+                                damage -= int(values[f"-armor-{tab_event}"])
+                                window[f'-OUTPUT-{tab_event}'].update(f"Урон: {round(max(damage, 0))}\n",
+                                                                      append=True)
+                                window[f'-OUTPUT-{tab_event}'].Widget.yview_moveto(1.0)
                     elif event == f"-COMBO-{tab_event}":
                         weapon_dict = window.Element(f"-TABLE-{tab_event}").metadata
                         # selected_weapon = weapon_dict[values[f"-COMBO-{tab_event}"]]
@@ -948,7 +951,7 @@ def main():
                             int(list(weapon_dict.values())[weapon_index][0][1]))
                     elif event[0] == "b":
                         window[f'-OUTPUT-{tab_event}'].update(
-                            f"Бросок {event_value.replace("-","")}: {special_d10_roll() + int(values[event[2:]]) + stats_value - int(values[f'-штраф-{tab_event}']) + int(values[f'-бонус-{tab_event}'])}\n",
+                            f"Бросок {event_value.replace("-", "")}: {special_d10_roll() + int(values[event[2:]]) + stats_value - int(values[f'-штраф-{tab_event}']) + int(values[f'-бонус-{tab_event}'])}\n",
                             append=True)
                         window[f'-OUTPUT-{tab_event}'].Widget.yview_moveto(1.0)
                     elif event == "Инициатива":
@@ -986,8 +989,9 @@ def main():
                             new_text = f"{character_description}\n\n{'-' * 50}\n\n{current_text}"
                         else:
                             new_text = character_description
-                        log(character_description.replace("\n"," # "))
+                        log(character_description.replace("\n", " # "))
                         window['-CHAR_OUTPUT-'].update(new_text)
+                        cprint('--')
                     elif event == f"-generate_char_scoiatael-":
                         character_description = generate_scoiatael()
                         current_text = window['-CHAR_OUTPUT-'].get()
@@ -997,6 +1001,7 @@ def main():
                             new_text = character_description
                         log(character_description.replace("\n", " # "))
                         window['-CHAR_OUTPUT-'].update(new_text)
+                        cprint('--')
                     elif event == f"-random_name_button-":
                         window[f'-random_name-'].update(
                             random_name(values['-SEX-COMBO-'], values['-RACE-COMBO-']).ljust(22))
@@ -1010,10 +1015,12 @@ def main():
                     # print(event)
                     if event.startswith("-HP_current-"):
                         hp_sp_total = []
-                        for i_tab,name_tab in tabs_names:
-                            hp_sp_total.append(f"ХП {name_tab} = {values[f'-HP_current-{i_tab-1}']}/{values[f'-HP-{i_tab-1}']}")
-                            hp_sp_total.append(f"ПЗ {name_tab} = {values[f'-SP_current-{i_tab-1}']}/{values[f'-SP-{i_tab-1}']}")
-                        log(hp_sp_total,"HP/SP")
+                        for i_tab, name_tab in tabs_names:
+                            hp_sp_total.append(
+                                f"ХП {name_tab} = {values[f'-HP_current-{i_tab - 1}']}/{values[f'-HP-{i_tab - 1}']}")
+                            hp_sp_total.append(
+                                f"ПЗ {name_tab} = {values[f'-SP_current-{i_tab - 1}']}/{values[f'-SP-{i_tab - 1}']}")
+                        log(hp_sp_total, "HP/SP")
                         if (values[f'-HP_current-{tab_event}']) != "" and values[f'-HP-{tab_event}'] != "":
                             changed_element = list(initiative.keys()).index(selected[int(tab_event)])
                             if float(values[f'-HP_current-{tab_event}']) < float(values[f'-HP-{tab_event}']) // 5:
@@ -1030,9 +1037,9 @@ def main():
                                 window[f"rec-{changed_element}-down"].update(background_color="green")
                 except TypeError as e:
                     pass
-                except Exception as e:
-                    show_error_popup(str(e))
-                    save_values_to_file(values)
+                # except Exception as e:
+                #     show_error_popup(str(e))
+                #     save_values_to_file(values)
             #   #  Если возникает ошибка, выводим сообщение, но приложение продолжает работу
             # show_error_popup(str(e))
             # save_values_to_file(values)

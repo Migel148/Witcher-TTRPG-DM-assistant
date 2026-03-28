@@ -1,12 +1,15 @@
 from random import randint, choice
 from Custom_scripts import *
+import PySimpleGUI as sg
 
 loaded_data = load_lists_json("witcher_game_data.json",)
+cprint = sg.cprint
 
 def roll_d6():
     r = randint(1, 6)
     log(r,"ROLL D6")
     print(r)
+    cprint(r)
     return r
 
 
@@ -15,6 +18,7 @@ def roll_d10(indicate=True):
     log(r,"ROLL D10")
     if indicate:
         print(r)
+        cprint(r)
     return r
 
 
@@ -49,7 +53,7 @@ def special_d10_roll():
         # Обычный результат
         result = roll
 
-    print(f"--")
+    cprint(f"--")
     return result
 
 
@@ -85,6 +89,7 @@ def crit_damage(attack, defense, body_part, window, tab_event):
 
 def random_name(sex, race):
     # if race == ["Муж", "Жен", "Люб"], ["Люди", "Aen Seidhe", "Крас", "Люб"]
+    # print(sex,race)
     names = {
         ("Муж", "Север"): loaded_data["human_male_names"],
         ("Муж", "Туссент"): loaded_data["toussaint_male_names"],
@@ -112,7 +117,7 @@ def random_name(sex, race):
          'Люб'): loaded_data["human_male_names"] + loaded_data["elf_male_names"] + loaded_data["dwarf_male_names"] + loaded_data["human_female_names"] + loaded_data["elf_female_names"] + loaded_data["dwarf_female_names"] + loaded_data["toussaint_male_names"] + loaded_data["toussaint_female_names"] + loaded_data["gnome_female_names"] + loaded_data["halfling_female_names"] + loaded_data["halfling_male_names"] + loaded_data["gnome_male_names"],
     }[(sex, race)]
 
-    return choice(names)
+    return f'{choice(names)} "{choice(loaded_data["nicknames"])}"'
 
 
 def random_things(rarity="Обычные"):
@@ -144,6 +149,7 @@ def generate_character_description():
         loaded_data["character_table"][15][roll_d10() - 1],
         loaded_data["character_table"][16][roll_d10() - 1],
     )
+
     name_var = " / ".join(
         [random_name(gender.title()[:3], ["Север", "Туссент"][randint(0, 1)] if race == "Человек" else race) for _ in
          range(3)])
@@ -170,19 +176,20 @@ def generate_scoiatael():
 
     # Получаем результаты по независимым броскам
     race, gender, physical1, physical2, equipment1, equipment2, behavior1, behavior2, motivation1, motivation2, secret1, secret2 = (
-        loaded_data["scoiatael_table"][roll_d10() - 1][0],
-        loaded_data["character_table"][roll_d10() - 1][1],
-        loaded_data["scoiatael_table"][roll_d10() - 1][1],
-        loaded_data["scoiatael_table"][roll_d10() - 1][2],
-        loaded_data["scoiatael_table"][roll_d10() - 1][3],
-        loaded_data["scoiatael_table"][roll_d10() - 1][4],
-        loaded_data["scoiatael_table"][roll_d10() - 1][5],
-        loaded_data["scoiatael_table"][roll_d10() - 1][6],
-        loaded_data["scoiatael_table"][roll_d10() - 1][7],
-        loaded_data["scoiatael_table"][roll_d10() - 1][8],
-        loaded_data["scoiatael_table"][roll_d10() - 1][9],
-        loaded_data["scoiatael_table"][roll_d10() - 1][10],
+        loaded_data["scoiatael_table"][0][roll_d10() - 1],
+        loaded_data["scoiatael_table"][1][roll_d10() - 1],
+        loaded_data["scoiatael_table"][2][roll_d10() - 1],
+        loaded_data["scoiatael_table"][3][roll_d10() - 1],
+        loaded_data["scoiatael_table"][4][roll_d10() - 1],
+        loaded_data["scoiatael_table"][5][roll_d10() - 1],
+        loaded_data["scoiatael_table"][6][roll_d10() - 1],
+        loaded_data["scoiatael_table"][7][roll_d10() - 1],
+        loaded_data["scoiatael_table"][8][roll_d10() - 1],
+        loaded_data["scoiatael_table"][9][roll_d10() - 1],
+        loaded_data["scoiatael_table"][10][roll_d10() - 1],
+        loaded_data["scoiatael_table"][11][roll_d10() - 1],
     )
+    print(race, gender, physical1, physical2, equipment1, equipment2, behavior1, behavior2, motivation1, motivation2, secret1, secret2)
     name_var = " / ".join(
         [random_name(gender.title()[:3], ["Север", "Туссент"][randint(0, 1)] if race == "Человек" else race) for _ in
          range(3)])

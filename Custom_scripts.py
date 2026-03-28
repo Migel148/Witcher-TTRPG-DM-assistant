@@ -4,6 +4,7 @@ from RestrictedPython import compile_restricted
 import PySimpleGUI as sg
 import os
 import datetime
+from re import sub
 
 def log(message, level="INFO"):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -67,6 +68,8 @@ def load_enemy_from_json(json_file_path):
     Загружает данные о враге из JSON-файла.
     Возвращает кортеж из 12 элементов, совместимый с battle_layout_maker.
     """
+    if '№' in json_file_path:
+        json_file_path = sub(r' №\d+', '', json_file_path)
     if not os.path.exists(json_file_path):
         # Пробуем найти .py файл как запасной вариант (для обратной совместимости)
         py_file_path = json_file_path.replace('.json', '.py')
@@ -155,6 +158,14 @@ def load_enemy_from_py(py_file_path):
         safe_globals.get('type', '')
     )
 
+def print_output(window):
+    current_text = window['-OUTPUT-'].get()
+    if current_text:
+        new_text = f"{current_text}\n\n{'-' * 50}\n\n{current_text}"
+    else:
+        new_text = character_description
+    log(character_description.replace("\n", " # "))
+    window['-CHAR_OUTPUT-'].update(new_text)
 
 def format_text(input_data, max_length=34):
     """Функция для обработки текста:
